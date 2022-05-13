@@ -320,6 +320,9 @@ markdown, and markdown to ipynb.
   to create a markdown
   document from the `.Rmd` source.
 
+  Since code chunks are not evaluated inline R code referencing objects within
+  these code chunks should not be used.
+
   This correctly processes the markdown content, including yaml
   metadata, but renders all code chunks identically.
 
