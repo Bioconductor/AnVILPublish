@@ -24,8 +24,8 @@ to be used.}
 notebooks) an existing workspace? The default (FALSE) creates
 notebooks locally, e.g., for previewing via \verb{jupyter notebook *ipynb}.}
 
-\item{type}{\code{character(1)} The type of notebook to be in the workspace. Must
-be on of \code{ipynb}, \code{rmd}, or \code{both}.}
+\item{type}{\code{character(1)} The type of notebook to be in the
+workspace. Must be on of \code{ipynb}, \code{rmd}, or \code{both}.}
 }
 \value{
 \code{as_notebook()} returns the paths to the local (if \code{update = FALSE}) or the workspace notebooks.

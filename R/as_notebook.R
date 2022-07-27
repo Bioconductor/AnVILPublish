@@ -144,15 +144,17 @@
 #'     notebooks locally, e.g., for previewing via `jupyter notebook
 #'     *ipynb`.
 #'
-#' @param type `character(1)` The type of notebook to be in the workspace. Must
-#'     be on of `ipynb`, `rmd`, or `both`.
+#' @param type `character(1)` The type of notebook to be in the
+#'     workspace. Must be on of `ipynb`, `rmd`, or `both`.
 #'
 #' @return `as_notebook()` returns the paths to the local (if `update
 #'     = FALSE`) or the workspace notebooks.
 #'
 #' @export
 as_notebook <-
-    function(rmd_paths, namespace, name, update = FALSE, type = c('ipynb', 'rmd', 'both'))
+    function(
+        rmd_paths, namespace, name, update = FALSE,
+        type = c('ipynb', 'rmd', 'both'))
 {
     type = match.arg(type)
     stopifnot(

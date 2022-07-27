@@ -39,8 +39,8 @@ content of README.md in package top-level folder is used with
 the package \code{DESCRIPTION} version and provenance metadata for
 rendering in the workspace 'DASHBOARD'.}
 
-\item{type}{\code{character(1)} The type of notebook to be in the workspace. Must
-be one of \code{ipynb}, \code{rmd}, or \code{both}.}
+\item{type}{\code{character(1)} The type of notebook to be in the
+workspace. Must be one of \code{ipynb}, \code{rmd}, or \code{both}.}
 }
 \value{
 \code{as_workspace()} returns the URL of the updated workspace,
