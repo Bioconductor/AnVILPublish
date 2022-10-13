@@ -165,13 +165,27 @@ as_notebook <-
     )
 
     if (type == 'ipynb') {
-        mds <- .rmd_to_md(rmd_paths)
-        notebooks <- .md_to_ipynb(mds)
+        if (Sys.which("quarto") != "") {
+            for (i in seq_along(rmd_paths)) {
+                system2("quarto", c("render", rmd_paths[[i]], "--to", "ipynb"))
+            }
+            notebooks <- sub("\\.Rmd", ".ipynb", rmd_paths)
+        } else {
+            mds <- .rmd_to_md(rmd_paths)
+            notebooks <- .md_to_ipynb(mds)
+        }
     } else if (type == 'rmd') {
         notebooks <- rmd_paths
     } else {
+        if (Sys.which("quarto") != "") {
+            for (i in seq_along(rmd_paths)) {
+                system2("quarto", c("render", rmd_paths[[i]], "--to", "ipynb"))
+            }
+            notebooks <- sub("\\.Rmd", ".ipynb", rmd_paths)
+        } else {
         mds <- .rmd_to_md(rmd_paths)
         notebooks <- .md_to_ipynb(mds)
+        }
         notebooks <- c(notebooks, rmd_paths)
     }
 
