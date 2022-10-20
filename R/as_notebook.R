@@ -126,6 +126,13 @@
     notebooks <- sub("\\.Rmd", ".ipynb", rmd_paths)
 }
 
+.quarto_exists() <-
+    function()
+{
+    quarto.location <- Sys.which("quarto")
+    nchar(quarto.location) > 0L
+}
+
 #' @rdname as_notebook
 #'
 #' @title Render vignettes as .ipynb notebooks
@@ -181,8 +188,7 @@ as_notebook <-
 
     notebooks <- character(0)
     if (type %in% c('ipynb', 'both')) {
-        quarto.location <- Sys.which("quarto")
-        if (quarto.location != "") {
+        if (.quarto_exists()) {
             notebooks <- .rmd_to_quarto(rmd_paths, quarto)
         } else {
             mds <- .rmd_to_md(rmd_paths)
