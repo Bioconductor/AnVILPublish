@@ -117,6 +117,15 @@
     paste0(bucket_notebooks, basename(notebooks))
 }
 
+.rmd_to_quarto <-
+    function(rmd_paths, quarto)
+{
+    for(rmd_path in rmd_paths) {
+        system2("quarto", c(quarto, rmd_path, "--to", "ipynb"))
+    }
+    notebooks <- sub("\\.Rmd", ".ipynb", rmd_paths)
+}
+
 #' @rdname as_notebook
 #'
 #' @title Render vignettes as .ipynb notebooks
@@ -154,9 +163,11 @@
 as_notebook <-
     function(
         rmd_paths, namespace, name, update = FALSE,
-        type = c('ipynb', 'rmd', 'both'))
+        type = c('ipynb', 'rmd', 'both'),
+        quarto = c('render', 'convert'))
 {
     type = match.arg(type)
+    quarto = match.arg(quarto)
     stopifnot(
         .is_character_n(rmd_paths), all(file.exists(rmd_paths)),
         .is_scalar_character(namespace),
@@ -164,28 +175,17 @@ as_notebook <-
         .is_scalar_logical(update)
     )
 
-    if (type == 'ipynb') {
-        if (Sys.which("quarto") != "") {
-            for (i in seq_along(rmd_paths)) {
-                system2("quarto", c("render", rmd_paths[[i]], "--to", "ipynb"))
-            }
-            notebooks <- sub("\\.Rmd", ".ipynb", rmd_paths)
+    notebooks <- character(0)
+    if (type %in% c('ipynb', 'both')) {
+        quarto.location <- Sys.which("quarto")
+        if (quarto.location != "") {
+            notebooks <- .rmd_to_quarto(rmd_paths, quarto)
         } else {
             mds <- .rmd_to_md(rmd_paths)
             notebooks <- .md_to_ipynb(mds)
         }
-    } else if (type == 'rmd') {
-        notebooks <- rmd_paths
-    } else {
-        if (Sys.which("quarto") != "") {
-            for (i in seq_along(rmd_paths)) {
-                system2("quarto", c("render", rmd_paths[[i]], "--to", "ipynb"))
-            }
-            notebooks <- sub("\\.Rmd", ".ipynb", rmd_paths)
-        } else {
-        mds <- .rmd_to_md(rmd_paths)
-        notebooks <- .md_to_ipynb(mds)
-        }
+    } 
+    if (type %in% c('rmd', 'both')) {
         notebooks <- c(notebooks, rmd_paths)
     }
 

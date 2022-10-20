@@ -196,9 +196,11 @@
 #' @export
 as_workspace <-
     function(path, namespace, name = NULL, create = FALSE, update = FALSE,
-             use_readme = FALSE, type = c('ipynb', 'rmd', 'both'))
+             use_readme = FALSE, type = c('ipynb', 'rmd', 'both'), 
+             quarto = c('render', 'convert'))
 {
     type = match.arg(type)
+    quarto = mathc.arg(quarto)
     stopifnot(
         .is_scalar_character(path), dir.exists(path),
         .is_scalar_character(namespace),
@@ -259,7 +261,7 @@ as_workspace <-
     rmd_paths <- c(.vignette_paths(path), rmd_setup_path)
     !(create || update) || {
         as_notebook(
-            rmd_paths, namespace, name, update = update || create, type
+            rmd_paths, namespace, name, update = update || create, type, quarto
         )
         TRUE
     }
