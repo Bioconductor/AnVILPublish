@@ -263,10 +263,9 @@ as_workspace <-
 
     ## build vignettes and add to workspace
     rmd_paths <- c(.vignette_paths(path), rmd_setup_path)
-    !(create || update) || {
-        as_notebook(
-            rmd_paths, namespace, name, update = update || create, type, quarto
-        )
+    as_notebook(
+        rmd_paths, namespace, name, update = update || create, type, quarto
+    )
         TRUE
     }
 
