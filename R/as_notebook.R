@@ -156,6 +156,10 @@
 #' @param type `character(1)` The type of notebook to be in the
 #'     workspace. Must be on of `ipynb`, `rmd`, or `both`.
 #'
+#' @param quarto `character(1)` If the program Quarto is installed, this
+#'     parameter indicates whether the .Rmd files will be rendered or converted.
+#'     See vignette for more details.
+#'
 #' @return `as_notebook()` returns the paths to the local (if `update
 #'     = FALSE`) or the workspace notebooks.
 #'
