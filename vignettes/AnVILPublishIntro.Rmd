@@ -66,7 +66,7 @@ Note that these be used to set, as well as interrogate, the acount and project.
 
 ## `Quarto` software
 
-Conversion of .Rmd vignettes to .ipynb notebooks uses Quarto software. It must
+Conversion of .Rmd vignettes to .ipynb notebooks uses [Quarto][] software. It must
 be available from within _R_, e.g.,
 
 ```{r, eval = FALSE}
@@ -77,13 +77,14 @@ The user must determine if they want their notebooks converted or rendered into
 .ipynb notebooks. The difference is using `render` will automatically execute R
 code blocks while `convert` will not.
  
-The legacy softwar used is python [notedown][2], which also must be available
+The legacy software used is python [notedown][2], which also must be available
 from within _R_, e.g.,
 
 ```{r, eval = FALSE}
 system2("notedown", "--version")
 ```
 
+[Quarto]: https://quarto.org
 [2]: https://github.com/aaren/notedown
 
 # Creating or updating workspaces
