@@ -186,7 +186,7 @@
 #'     rendering in the workspace 'DASHBOARD'.
 #'
 #' @param type `character(1)` The type of notebook to be in the
-#'     workspace. Must be one of `ipynb`, `rmd`, or `both`.
+#'     workspace. Must be one of `ipynb`, `rmd`, `qmd`, or `all`.
 #'
 #' @param quarto `character(1)` If the program Quarto is installed, this
 #'     parameter indicates whether the .Rmd files will be rendered or converted.
@@ -200,7 +200,7 @@
 #' @export
 as_workspace <-
     function(path, namespace, name = NULL, create = FALSE, update = FALSE,
-             use_readme = FALSE, type = c('ipynb', 'rmd', 'both'),
+             use_readme = FALSE, type = c('ipynb', 'rmd', 'qmd', 'all'),
              quarto = c('render', 'convert'))
 {
     type = match.arg(type)

@@ -165,7 +165,7 @@
 #'     *ipynb`.
 #'
 #' @param type `character(1)` The type of notebook to be in the
-#'     workspace. Must be on of `ipynb`, `rmd`, or `both`.
+#'     workspace. Must be one of `ipynb`, `rmd`, `qmd`, or `all`.
 #'
 #' @param quarto `character(1)` If the program Quarto is installed, this
 #'     parameter indicates whether the .Rmd files will be rendered or converted.
@@ -178,7 +178,7 @@
 as_notebook <-
     function(
         rmd_paths, namespace, name, update = FALSE,
-        type = c('ipynb', 'rmd', 'both'),
+        type = c('ipynb', 'rmd', 'qmd', 'all'),
         quarto = c('render', 'convert'))
 {
     type = match.arg(type)
@@ -191,7 +191,7 @@ as_notebook <-
     )
 
     notebooks <- character(0)
-    if (type %in% c('ipynb', 'both')) {
+    if (type %in% c('ipynb', 'all')) {
         if (.quarto_exists()) {
             notebooks <- .rmd_to_quarto(rmd_paths, quarto)
         } else {
@@ -199,8 +199,14 @@ as_notebook <-
             notebooks <- .md_to_ipynb(mds)
         }
     }
-    if (type %in% c('rmd', 'both')) {
+    if (type %in% c('rmd', 'all')) {
         notebooks <- c(notebooks, rmd_paths)
+    }
+
+    vignette_path <- dirname(rmd_paths)[1]
+    qmd_paths <- dir(vignette_path, pattern = "\\.[Qq]md$", full.names = TRUE)
+    if (type %in% c('qmd', 'all')) {
+        notebooks <- c(notebooks, qmd_paths)
     }
 
     if (update) {
