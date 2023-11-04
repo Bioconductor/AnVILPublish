@@ -118,7 +118,7 @@
 {
     bucket <- avbucket(namespace, name)
     bucket_notebooks <- paste0(bucket, "/notebooks/")
-    gsutil_cp(notebooks, bucket_notebooks)
+    gsutil_cp(notebooks, bucket_notebooks, recursive = TRUE)
     paste0(bucket_notebooks, basename(notebooks))
 }
 
@@ -208,6 +208,17 @@ as_notebook <-
     }
     if (type %in% c('rmd', 'both')) {
         notebooks <- c(notebooks, rmd_paths)
+    }
+
+    rmd_directories <- dirname(rmd_paths)
+    is_vignette_directory <- endsWith(rmd_directories, "/vignettes")
+
+    if (length(rmd_directories[is_vignette_directory])) {
+        vignette_nodes <- dir(rmd_directories[is_vignette_directory], full = TRUE)
+        is_directory <- file.info(vignette_nodes)$isdir
+        additional_files <-
+            unique(vignette_nodes[is_directory])
+        notebooks <- c(notebooks, additional_files)
     }
 
     if (update) {
