@@ -1,40 +1,42 @@
-# {{{ Title }}}
+{{ #README }}
+# README
+{{{ README }}} {{ /README }}
 
-{{{ Description }}}
+# R Package DESCRIPTION
 
-Author:
-{{ #Authors }}
-- {{{ Author }}}{{ /Authors }}
+Package: {{{ Package }}}
 
-Maintainer:
-
-- {{{ Maintainer }}}
-
-Source package: {{{ Package }}}
-
-Licence: {{{ License }}}
+Title: {{{ Title }}}
 
 Version: {{{ Version }}}
 
-## Notebook setup
+Description: {{{ Description }}}
+
+Author: {{ #Authors }}
+- {{{ Author }}} {{ /Authors }}
+
+Maintainer:
+- {{{ Maintainer }}}
+
+License: {{{ License }}}
+
+# Notebook setup
 
 - Use the '00-{{{ name }}}' notebook to configure your runtime for
   this workspace.
 
-## Vignettes
+# Vignettes
 
 {{ #Vignettes }}
 {{#ipynb}}[ipynb](https://anvil.terra.bio/#workspaces/{{{ namespace }}}/{{{ name }}}/analysis/launch/{{{ ipynb }}}) {{/ipynb}}{{!
 }}{{#rmd}}[Rmd](https://anvil.terra.bio/#workspaces/{{{ namespace }}}/{{{ name }}}/analysis/launch/{{{ rmd }}}){{/rmd}} -- {{{ title }}}
 {{ #vignette_authors }}
-- {{{ name }}} {{#email}}(<a href="mailto:{{{email}}}">{{{email}}}</a>){{/email}} {{ /vignette_authors }}
-{{ /Vignettes }}
+- {{{ name }}} {{#email}}(<a href="mailto:{{{email}}}">{{{email}}}</a>){{/email}} {{ /vignette_authors }} {{ /Vignettes }}
 
-## Citation
+# Citation
 
 {{{ Citation }}}
 
 R version {{{ RVersion }}}, Bioconductor version {{{ BioconductorVersion }}}
 
 Workspace dashboard created: {{{ ProcessDate }}}
-
