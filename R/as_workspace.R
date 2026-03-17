@@ -234,13 +234,13 @@ as_workspace <-
     data$name <- name
 
     tmpl <- .template("dashboard.tmpl")
-    dashboard <- whisker.render(tmpl, data)
 
     if (use_readme) {
         rmepath <- file.path(path, "README.md")
-        rme <- paste(readLines(rmepath), collapse="\n")
-        dashboard <- paste(dashboard, rme, collapse="\n")
+        data$README <- paste(readLines(rmepath), collapse="\n")
     }
+
+    dashboard <- whisker.render(tmpl, data)
 
     !(create || update) || .set_dashboard(dashboard, namespace, name)
 
